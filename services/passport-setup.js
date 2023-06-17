@@ -1,15 +1,15 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 require("dotenv").config();
-const User = require("../models/user-model");
+const User = require("../models/users-model");
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-    const user = await User.findById(id);
-    done(null, user);
+  const user = await User.findById(id);
+  done(null, user);
 });
 
 passport.use(
@@ -27,9 +27,11 @@ passport.use(
             username: profile.displayName,
             googleId: profile.id,
           });
-        //   console.log("User Created");
+          done(null, newUser);
+          console.log("User Created");
         } else {
-        //   console.log("User Already Exists");
+          console.log("User Already Exists");
+          done(null, existingUser);
         }
       } catch (error) {
         console.log(error);
