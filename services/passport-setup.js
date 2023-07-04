@@ -17,7 +17,7 @@ passport.use(
     {
       clientID: process.env.OAUTH_CLIENT_ID,
       clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      callbackURL: "/auth/redirect",
+      callbackURL: "/api/v1/auth/redirect",
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

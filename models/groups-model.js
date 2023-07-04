@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const institutionSchema = mongoose.Schema({
+const groupSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -8,7 +8,7 @@ const institutionSchema = mongoose.Schema({
   },
   users: [
     {
-      id: {
+      user: {
         type: mongoose.Schema.Types.ObjectId,
         ref:"users"
       },
@@ -24,5 +24,5 @@ const institutionSchema = mongoose.Schema({
   },
 });
 
-const Institution = mongoose.model("institutions", institutionSchema);
-module.exports = Institution;
+const Group = mongoose.model("groups", groupSchema);
+module.exports = Group;

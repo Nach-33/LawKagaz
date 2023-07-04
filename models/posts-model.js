@@ -5,14 +5,6 @@ const postSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
-  private:{
-    type: Boolean,
-    default: false,
-  },
-  institution:{
-    type: String,
-    default:"none"
-  },
   attatchments: [
     {
       url: {
@@ -26,10 +18,8 @@ const postSchema = mongoose.Schema({
   },
   comments: [
     {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"comments"
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"comments"
     },
   ],
   likes: {

@@ -12,31 +12,31 @@ const userSchema = mongoose.Schema({
   },
   category: {
     type: String,
-    enum: ["Lawyer", "General", "Admin"],
-    required: true,
+    enum: ["lawyer", "general", "admin"],
+    default: "general",
   },
   posts: [
     {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "posts",
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "posts",
+    },
+  ],
+  requests: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
   ],
   associates: [
     {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"users"
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
     },
   ],
   institutions: [
     {
-      id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"institutions"
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "institutions",
     },
   ],
   creationTimestamp: {
