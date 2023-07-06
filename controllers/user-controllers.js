@@ -18,10 +18,21 @@ const sendRequest = async (req, res) => {
             { _id: associateId },
             {
                 $push: {
-                    requests: user.id,
+                    requestsRecieved: user.id,
                 },
             }
         );
+        await User.findOneAndUpdate(
+            { _id: user.id },
+            {
+                $push: {
+                    requestsSent: associateId,
+                },
+            }
+        );
+
+        res.json({msg : "Request sent successfully "});
+
     } catch (error) {
         handleError(res, error);
     }
@@ -35,13 +46,26 @@ const acceptRequest = async (req, res) => {
             { _id: user.id },
             {
                 $pull: {
-                    requests: associateId,
+                    requestsRecieved: associateId,
                 },
                 $push: {
                     associates: associateId,
                 },
             }
         );
+        await User.findOneAndUpdate(
+            { _id: associateId },
+            {
+                $pull: {
+                    requestsSent: user.id,
+                },
+                $push: {
+                    associates: user.id,
+                },
+            }
+        );
+
+        res.json({msg : "Request accepted successfully"})
     } catch (error) {
         handleError(res, error);
     }

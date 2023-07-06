@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { getAllPosts, getPostById, createNewPost, deletePost } = require("../controllers/posts");
+const { getAllPosts, getPostById, createNewPost, deletePost } = require("../controllers/posts-controllers");
 const {postLikeDislike}=require("../controllers/like-dislike-post-controller")
 
 

@@ -1,11 +1,11 @@
 const router = require("express").Router();
 
-const { getProfile, sendRequest, acceptRequest } = require("../controllers/user")
+const { getProfile, sendRequest, acceptRequest } = require("../controllers/user-controllers")
 
 router.get("/profile", getProfile);
 
-router.post("/request/:id", sendRequest);
+router.post("/sendRequest/:id", sendRequest);
 
-router.post("/accept/:id", acceptRequest);
+router.post("/acceptRequest/:id", acceptRequest);
 
 module.exports = router;
