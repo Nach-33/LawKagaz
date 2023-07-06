@@ -21,7 +21,13 @@ const userSchema = mongoose.Schema({
       ref: "posts",
     },
   ],
-  requests: [
+  requestsRecieved: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+  ],
+  requestsSent: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "users",
