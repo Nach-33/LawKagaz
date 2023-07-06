@@ -22,14 +22,18 @@ const postSchema = mongoose.Schema({
       ref:"comments"
     },
   ],
-  likes: {
-    type: Number,
-    default: 0,
-  },
-  dislikes: {
-    type: Number,
-    default: 0,
-  },
+  dislikes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"users"
+    }
+  ],
+  likes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"users"
+    }
+  ],
   creationTimestamp: {
     type: Date,
     default: Date.now(),

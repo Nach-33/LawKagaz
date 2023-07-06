@@ -39,6 +39,26 @@ const userSchema = mongoose.Schema({
       ref: "institutions",
     },
   ],
+  postLikes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    }
+  ],
+  postDislikes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    }
+  ],
+  commentLikes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    }
+  ],
+  commentDislikes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+    }
+  ],
   creationTimestamp: {
     type: Date,
     default: Date.now(),
