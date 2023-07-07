@@ -13,7 +13,7 @@ const postLikeDislike=async(req,res)=>{
     console.log(user,"\n",status,"\n",id,"\n",task)
     if(status=="like"){
         try {
-            const waits=await Post.findOneAndUpdate(
+            await Post.findOneAndUpdate(
                 { _id: id },
                 {
                     $push: {

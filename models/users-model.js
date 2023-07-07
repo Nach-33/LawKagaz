@@ -65,6 +65,12 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
     }
   ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"comments"
+    },
+  ],
   creationTimestamp: {
     type: Date,
     default: Date.now(),
