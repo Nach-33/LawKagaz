@@ -39,10 +39,10 @@ const userSchema = mongoose.Schema({
       ref: "users",
     },
   ],
-  institutions: [
+  groups: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "institutions",
+      ref: "groups",
     },
   ],
   postLikes:[
