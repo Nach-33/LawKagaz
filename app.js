@@ -9,6 +9,8 @@ const authRoutes = require("./routes/auth-routes");
 const postRoutes = require("./routes/posts-routes");
 const userRoutes = require("./routes/user-routes");
 const commentRoutes = require("./routes/comment-routes");
+const groupRoutes = require("./routes/group-routes");
+
 require("dotenv").config();
 
 app.use(express.json());
@@ -34,6 +36,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/posts", postRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/comments", commentRoutes);
+app.use("/api/v1/group", groupRoutes);
 
 const port = process.env.PORT || 4000;
 const url = process.env.MONGO_URI;
