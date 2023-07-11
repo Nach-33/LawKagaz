@@ -4,7 +4,7 @@ const {
   commentsLikeDislike,
 } = require("../controllers/like-dislike-comments-controller");
 const {
-  postComment,
+  createComment,
   findComment,
   deleteComment,
 } = require("../controllers/comments-controller");
@@ -13,7 +13,8 @@ const {
 
 router.post("/vote/:id", commentsLikeDislike);
 
-router.post("/:id", postComment);
+// id is id of the parent
+router.post("/:id", createComment);
 
 router.get("/:id", findComment);
 
