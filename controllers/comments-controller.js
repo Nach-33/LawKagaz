@@ -6,16 +6,19 @@ var mongoose = require("mongoose");
 // routes comments/add/:id?status=post Create a comment on post
 // routes comments/add/:id?status=comment Create a thread on comment
 
-const postComment = async (req, res) => {
+const createComment = async (req, res) => {
   try {
     const user = req.user;
-    const { status,comment } = req.body;
+    const { status,content } = req.body;
     const id = req.params.id;
 
     const newComment = await Comment.create({
       author: mongoose.Types.ObjectId(user.id),
-      comment,
-      parent:id
+      content,
+      parent:{
+        parentId : id,
+        status 
+      }
     });
 
     await User.findOneAndUpdate(
@@ -52,14 +55,14 @@ const postComment = async (req, res) => {
   }
 };
 
-// routes comments/delete/:idComment/:idParent?status=post Remove Comment from the post
-// routes comments/delete/:idComment/:idParent?status=comment Remove Comment from Comment (Thread)
+// routes comments/delete/:idComment/:parentId?status=post Remove Comment from the post
+// routes comments/delete/:idComment/:parentId?status=comment Remove Comment from Comment (Thread)
 const deleteComment = async (req, res) => {
   try {
     const user = req.user;
     const idComment = req.params.id;
-    const {status} = req.body;
-    const idParent = (await Comment.findById(idComment)).parent;
+    const {parentId , status} = (await Comment.findById(idComment)).parent;
+    console.log(parentId)
 
     await User.findOneAndUpdate(
       { _id: user.id },
@@ -71,7 +74,7 @@ const deleteComment = async (req, res) => {
     );
     if (status == "post") {
       await Post.findOneAndUpdate(
-        { _id: idParent },
+        { _id: parentId },
         {
           $pull: {
             comments: idComment,
@@ -80,14 +83,18 @@ const deleteComment = async (req, res) => {
       );
     } else if (status == "comment") {
       await Comment.findOneAndUpdate(
-        { _id: idParent },
+        { _id: parentId },
         {
           $pull: {
             comments: idComment,
           },
         }
       );
+
     }
+      await Comment.findOneAndDelete(
+        { _id : idComment}
+      )
     res.json({ msg: "Comment removed successfully" });
   } catch (error) {
     handleError(res, error);
@@ -103,4 +110,4 @@ const findComment = async (req, res) => {
   }
 };
 
-module.exports = { postComment, findComment, deleteComment };
+module.exports = { createComment, findComment, deleteComment };
