@@ -9,8 +9,15 @@ const commentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  parent: {
-    type: mongoose.Schema.Types.ObjectId,
+  parent: {                       
+    type: Object,
+    parentId: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    status: {
+      type: String,
+      enum: ["post", "comment"],
+    },
   },
   comments: [
     {

@@ -2,8 +2,8 @@ const User = require("../models/users-model");
 const Comments = require("../models/comments-model");
 const handleError = require("../functions/handleError");
 
-// routes comments/vode/:id?status=Like Like on Comment
-// routes comments/vode/:id?status=disLike disLike on Comment
+// routes comments/vode/:id?     status in body           Like on Comment
+// routes comments/vode/:id?     status=disLike  in body  disLike on Comment
 
 const commentsLikeDislike = async (req, res) => {
   const id = req.params.id;
