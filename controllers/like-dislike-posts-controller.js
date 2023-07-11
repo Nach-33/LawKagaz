@@ -10,7 +10,6 @@ const postLikeDislike=async(req,res)=>{
     const status=req.query.status;
     const id=req.params.id;
     const task=await Post.findById({_id:id})
-    console.log(user,"\n",status,"\n",id,"\n",task)
     if(status=="like"){
         try {
             await Post.findOneAndUpdate(

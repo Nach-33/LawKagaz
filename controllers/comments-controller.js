@@ -10,7 +10,7 @@ const postComment=async(req,res)=>{
     try {
         const user=req.user;
         const newComment=await Comment.create({author:mongoose.Types.ObjectId(user.id),content:req.body.content});
-        const status=req.query.status
+        const {status}=req.body
         const id=req.params.id
         await User.findOneAndUpdate(
             { _id: user.id },
@@ -45,38 +45,36 @@ const postComment=async(req,res)=>{
     }
 }
 
-// routes comments/delete/:idc/:idp?status=post Remove Comment from the post
-// routes comments/delete/:idc/:idp?status=comment Remove Comment from Comment (Thread)
+// routes comments/delete/:idComment/:idParent?status=post Remove Comment from the post
+// routes comments/delete/:idComment/:idParent?status=comment Remove Comment from Comment (Thread)
 const deleteComment=async(req,res)=>{
     try {
         const user=req.user;
-        const status=req.query.status
-        const idc=req.params.idc
-        const idp=req.params.idp
-        console.log(user,status,idc,idp)
+        const {idComment,idParent,status}=req.body
+        console.log(user,status,idComment,idParent)
         await User.findOneAndUpdate(
             { _id: user.id },
             {
                 $pull: {
-                    comments: idc,
+                    comments: idComment,
                 },
             }
         );
         if(status=="post"){
             await Post.findOneAndUpdate(
-                { _id: idp },
+                { _id: idParent },
                 {
                     $pull: {
-                        comments: idc,
+                        comments: idComment,
                     },
                 }
             );
         }else if(status=="comment"){
             await Comment.findOneAndUpdate(
-                { _id: idp },
+                { _id: idParent },
                 {
                     $pull: {
-                        comments: idc,
+                        comments: idComment,
                     },
                 }
                 );

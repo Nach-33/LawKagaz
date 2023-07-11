@@ -1,4 +1,3 @@
-const Post = require("../models/posts-model");
 const User = require("../models/users-model");
 const Comments = require("../models/comments-model");
 const handleError = require("../functions/handleError");
@@ -8,9 +7,9 @@ const handleError = require("../functions/handleError");
 // routes comments/vode/:id?status=disLike disLike on Comment
 
 const commentsLikeDislike=async(req,res)=>{
-    const user=req.user;
-    const status=req.query.status;
     const id=req.params.id;
+    const user=req.user;
+    const {status}=req.body;
     const task=await Comments.findById({_id:id})
     console.log(user,"\n",status,"\n",id,"\n",task)
     if(status=="like"){
