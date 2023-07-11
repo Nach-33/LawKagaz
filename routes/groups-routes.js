@@ -2,23 +2,23 @@ const router = require("express").Router();
 
 const { createGroup , findGroupById , findGroupByName , addMemberToGroup ,removeFromGroup, deleteGroup} = require("../controllers/groups-controller")
 
-//    /createGroup/?groupName=
-router.post("/createGroup/" , createGroup)
+//    /
+router.post("/" , createGroup)
 
 //    /findGroupById/:id
-router.post("/findGroupById/:id" , findGroupById)
+router.get("/id/:id" , findGroupById)
 
 //    /findGroupByName/?groupName=
-router.post("/findGroupByName/" , findGroupByName)
+router.get("/name/:name" , findGroupByName)
 
-//    /addMemberToGroup/:id/?groupName=      
-router.post("/addMemberToGroup/:id/" , addMemberToGroup)
+//    /addMemberToGroup/
+router.post("/member" , addMemberToGroup)
 
-//   /removeFromGroup/:idg/:idm
-router.post("/removeFromGroup/:idg/:idm" , removeFromGroup)
+//   /removeFromGroup/
+router.delete("/member" , removeFromGroup)
 
 //    /deleteGroup/:id/  
-router.post("/deleteGroup/:id/" , deleteGroup)
+router.delete("/:id" , deleteGroup)
 
 
 

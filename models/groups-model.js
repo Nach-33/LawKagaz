@@ -8,9 +8,9 @@ const groupSchema = mongoose.Schema({
   },
   users: [
     {
+      type: Object,
       user : { 
         type: mongoose.Schema.Types.ObjectId,
-        ref:"users"
       },
       admin: {
         type: Boolean,
