@@ -17,6 +17,6 @@ router.post("/:id", postComment);
 
 router.get("/:id", findComment);
 
-router.delete("/", deleteComment);
+router.delete("/:id", deleteComment);
 
 module.exports = router;

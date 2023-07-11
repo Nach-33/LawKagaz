@@ -9,6 +9,9 @@ const commentSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  parent: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -18,14 +21,14 @@ const commentSchema = mongoose.Schema({
   dislikes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"users"
-    }
+      ref: "users",
+    },
   ],
   likes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref:"users"
-    }
+      ref: "users",
+    },
   ],
   creationTimestamp: {
     type: Date,
