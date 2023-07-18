@@ -75,6 +75,10 @@ const addMemberToGroup = async (req, res) => {
         // add this member to the group's users array
         const thisGroup = await Group.findOne({ _id: groupId });
 
+        if (!thisGroup) {
+            return res.json({ message: " Invalid group ID " });
+        }
+
         function checkAdmin(user) {
             return (user.user == userId && user.admin == true)
         }
@@ -97,12 +101,9 @@ const addMemberToGroup = async (req, res) => {
             )
         }
         else {
-            res.json({ message: " User isn't admin " });
+            return res.json({ message: " User isn't admin " });
         }
 
-        if (!thisGroup) {
-            res.json({ message: " Invalid group name " });
-        }
 
         // add the group id to the user's group array
         const newMember = await User.findOneAndUpdate(
@@ -115,10 +116,11 @@ const addMemberToGroup = async (req, res) => {
         );
 
         if (!newMember) {
-            res.json({ message: " Invalid member " });
+            return res.json({ message: " Invalid member " });
         }
 
         res.json({ message: " Member added successfully" });
+
     } catch (error) {
         handleError(res, error);
     }
@@ -131,6 +133,10 @@ const makeAdmin = async (req, res) => {
     try {
         // add this member to the group's users array
         const thisGroup = await Group.findOne({ _id: groupId });
+
+        if (!thisGroup) {
+            return  res.json({ message: " Invalid group ID " })
+        }
 
         function checkAdmin(user) {
             return (user.user == userId && user.admin == true)
@@ -157,12 +163,9 @@ const makeAdmin = async (req, res) => {
             console.log(thisGroup)
         }
         else {
-            res.json({ message: " User isn't admin " });
+            return res.json({ message: " User isn't admin " });
         }
-
-        if (!thisGroup) {
-           return  res.json({ message: " Invalid group name " })
-        }
+        
 
         res.json({ message: "Member made admin successfully" })
     } catch (error) {
@@ -178,6 +181,10 @@ const removeFromGroup = async (req, res) => {
 
     try {
         const thisGroup = await Group.findOne({ _id: groupId });
+
+        if (!thisGroup) {
+            return res.json({ message: " Invalid group ID " });
+        }
 
         function checkAdmin(user) {
             return (user.user == userId && user.admin == true)
@@ -200,13 +207,8 @@ const removeFromGroup = async (req, res) => {
             );
         }
         else {
-            res.json({ message: " User isn't admin " });
+            return res.json({ message: " User isn't admin " });
         }
-
-        if (!thisGroup) {
-            res.json({ message: " Invalid group name " });
-        }
-
 
         // remove group from user's groups array
         await User.findOneAndUpdate(
@@ -230,6 +232,10 @@ const deleteGroup = async (req, res) => {
 
     try {
         const thisGroup = await Group.findOne({ _id: groupId });
+
+        if (!thisGroup) {
+            return res.json({ message: " Invalid group ID " });
+        }
         // console.log(thisGroup)
 
         // first traverse group's user array and delete groups id from thier groups array
