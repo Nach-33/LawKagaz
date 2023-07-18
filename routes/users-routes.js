@@ -2,10 +2,10 @@ const router = require("express").Router();
 
 const { getProfile, sendRequest, acceptRequest } = require("../controllers/users-controllers")
 
-router.get("/profile", getProfile);
+router.get("/", getProfile);
 
-router.post("/sendRequest/:id", sendRequest);
+router.post("/request/:id", sendRequest);
 
-router.post("/acceptRequest/:id", acceptRequest);
+router.post("/accept/:id", acceptRequest);
 
 module.exports = router;
